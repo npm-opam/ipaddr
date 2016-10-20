@@ -1,0 +1,55 @@
+{
+    "name": "ipaddr-actual",
+    "exportedEnvVars": {
+        "ipaddr_version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "2.7.0"
+        },
+        "ipaddr_installed": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "true"
+        },
+        "FINDLIB": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/lib"
+        },
+        "version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "2.7.0"
+        },
+        "ipaddr_enable": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "enable"
+        },
+        "PATH": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/bin"
+        }
+    },
+    "version": "2.7.0",
+    "dependencies": {
+        "@opam-alpha/sexplib": "*",
+        "@opam-alpha/ounit": "*",
+        "@opam-alpha/ocamlfind": "*",
+        "dependency-env": "https://github.com/npm-ml/dependency-env.git",
+        "substs": "https://github.com/yunxing/substs.git",
+        "@opam-alpha/ocamlbuild": "*",
+        "@opam-alpha/ppx_sexp_conv": "*",
+        "nopam": "https://github.com/yunxing/nopam.git",
+        "opam-installer-bin": "https://github.com/yunxing/opam-installer-bin.git"
+    },
+    "scripts": {
+        "postinstall": "eval $(dependencyEnv) && nopam && ocaml setup.ml -configure --prefix $opam_prefix --${ounit_enable:-disable}-tests && make build && make install && (opam-installer --prefix=$opam_prefix || true)"
+    },
+    "peerDependencies": {
+        "@opam-alpha/ocaml": ">= 4.02.2"
+    }
+}
